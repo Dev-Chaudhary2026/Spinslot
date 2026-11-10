@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SpinSlot | Hostel Laundry Slot Booking | LPU</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@500;700;800&family=Figtree:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="icon" href="logo.png">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<section id="auth">
+  <div class="brand">
+    <div class="lpu"><img src="logo.png" alt="LPU logo"><span>Lovely Professional University</span></div>
+    <div class="poster" role="img" aria-label="Hostel laundry booking poster"></div>
+    
+    <h1>SpinSlot</h1>
+    <h2 class="tag2">Skip the queue. Book your spin.</h2>
+    <p>Book a washer or dryer in your hostel block. No queues, no clashes.</p>
+    <div class="live"><b id="liveFree">0</b> slots free today</div>
+  </div>
+  <div class="panel" id="panel">
+    <div class="tabs" id="tabs">
+      <button type="button" id="tLogin" class="on">Log in</button>
+      <button type="button" id="tSign">Create account</button>
+    </div>
+    <form id="loginForm" novalidate>
+      <label>Registration number or staff ID
+        <input id="lid" autocomplete="username" placeholder="e.g. 12614875"><small class="err"></small></label>
+      <label>Password
+        <div class="pw"><input id="lpw" type="password" autocomplete="current-password"><button type="button" class="eye" data-t="lpw">Show</button></div>
+        <small class="err"></small></label>
+      <button type="button" class="linkbtn forgot" id="forgot">Forgot password?</button>
+      <button class="primary big">Log in</button>
+      <div class="demo">Try a demo account:
+        <button type="button" data-u="12614875" data-p="lpu12345">Student</button>
+        <button type="button" data-u="WARDEN01" data-p="warden123">Warden</button>
+      </div>
+    </form>
+    <form id="signForm" hidden novalidate>
+      <p class="note">Only students added to the hostel roster by the warden can create an account. Your name and room must match the roster.</p>
+      <label>Full name<input id="sn" autocomplete="name"><small class="err"></small></label>
+      <label>Registration number<input id="sr" inputmode="numeric" placeholder="8 digits"><small class="err"></small></label>
+      <label>Room number<input id="sm" placeholder="e.g. B-214"><small class="err"></small></label>
+      <label>Recovery PIN (4 digits)<input id="spin" type="password" inputmode="numeric" maxlength="4" placeholder="Used to reset your password"><small class="err"></small></label>
+      <label>Password<input id="sp" type="password" autocomplete="new-password" placeholder="At least 6 characters"><small class="err"></small></label>
+      <label>Confirm password<input id="sc" type="password" autocomplete="new-password"><small class="err"></small></label>
+      <button class="primary big">Create account</button>
+    </form>
+    <form id="resetForm" hidden novalidate>
+      <h2>Reset your password</h2>
+      <p class="note">Enter your room and the 4-digit recovery PIN you chose when you registered. Resetting also removes a login block.</p>
+      <label>Registration number<input id="rr" inputmode="numeric" placeholder="e.g. 12614875"><small class="err"></small></label>
+      <label>Room number<input id="rm2" placeholder="e.g. B-214"><small class="err"></small></label>
+      <label>Recovery PIN<input id="rpin" type="password" inputmode="numeric" maxlength="4"><small class="err"></small></label>
+      <label>New password<input id="rp" type="password" autocomplete="new-password" placeholder="At least 6 characters"><small class="err"></small></label>
+      <label>Confirm new password<input id="rc" type="password" autocomplete="new-password"><small class="err"></small></label>
+      <button class="primary big">Reset password</button>
+      <button type="button" class="linkbtn" id="backLogin">Back to log in</button>
+      <p class="demo">Demo accounts: room as on the roster (Ritesh B-214), PIN 1234.</p>
+    </form>
+  </div>
+</section>
+
+<div id="app" hidden>
+  <aside class="side">
+    <div class="brandmark"><img class="logo" src="logo.png" alt="LPU logo"><strong>SpinSlot</strong></div>
+    <nav id="nav">
+      <button data-go="dash" class="on"><i data-i="dash"></i><span>Dashboard</span></button>
+      <button data-go="book"><i data-i="book"></i><span>Book a slot</span></button>
+      <button data-go="list"><i data-i="list"></i><span>Bookings</span></button>
+      <button data-go="about"><i data-i="info"></i><span>Problem and solution</span></button>
+    </nav>
+    <div class="sidefoot">
+      <div class="user"><span class="av" id="av">R</span><div><b id="uname"></b><small id="role"></small></div></div>
+      <div class="row">
+        <button id="theme" class="icon" aria-label="Switch light or dark theme"><i data-i="moon"></i><span>Theme</span></button>
+        <button id="logout" class="icon" aria-label="Log out"><i data-i="out"></i><span>Log out</span></button>
+      </div>
+    </div>
+  </aside>
+
+  <div class="content">
+    <header class="pagehead">
+      <div><p class="eyebrow" id="dateLong"></p><h1 id="pageTitle">Dashboard</h1></div>
+      <label class="datepick"><span>Date</span><input type="date" id="date"></label>
+    </header>
+    <main>
+      <section class="view" id="v-dash">
+        <div class="hero">
+          <div><h2 id="hello">Hi</h2><p class="hint">See how busy the laundry room is, then pick a quieter time.</p><button class="primary stuonly" data-go="book">Book a slot</button></div>
+          <div class="ring" id="ring"><div><b id="sPct">0%</b><small>in use</small></div></div>
+        </div>
+        <div class="kpis">
+          <div class="kpi"><i data-i="dash"></i><b id="sTotal">0</b><span>Total slots</span></div>
+          <div class="kpi ok"><i data-i="washer"></i><b id="sFree">0</b><span>Available</span></div>
+          <div class="kpi warn"><i data-i="clock"></i><b id="sBooked">0</b><span>Booked</span></div>
+          <div class="kpi run"><i data-i="check"></i><b id="sDone">0</b><span>Completed</span></div>
+        </div>
+        <div class="dgrid">
+          <div class="card span2"><h3>Peak hours</h3><p class="sub">Machines booked in each time slot (selected date). Darker bar = busiest.</p><div class="bars" id="peak"></div></div>
+          <div class="card"><h3>Machines</h3><p class="sub">How full each one is</p><div id="mach"></div></div>
+          <div class="card"><h3>Booking status</h3><p class="sub">Selected date</p><div class="stack" id="stk"></div><div class="stkleg" id="stkl"></div></div>
+          <div class="card span2"><h3>Next booking</h3><div id="next"></div></div>
+        </div>
+      </section>
+
+      <section class="view" id="v-book" hidden>
+        <div class="card">
+          <div class="cardhead"><div><h3>Choose a machine and time</h3><p class="sub" id="gridHint"></p></div>
+            <button class="primary stuonly" id="smart"><i data-i="bolt"></i> Book next free slot</button></div>
+          <div class="legend"><span class="free">Available</span><span class="taken">Booked</span><span class="run">In progress</span><span class="fin">Completed</span><span class="you">Yours</span></div>
+          <div class="gridwrap"><table id="grid" class="grid"></table></div>
+        </div>
+      </section>
+
+      <section class="view" id="v-list" hidden>
+        <div class="card">
+          <div class="cardhead"><div><h3 id="listTitle">My bookings</h3><p class="sub">Search, filter, update, cancel or delete records.</p></div>
+            <button class="primary stuonly" data-go="book"><i data-i="plus"></i> New booking</button></div>
+          <div class="searchbox"><i data-i="search"></i><input type="search" id="q" placeholder="Search name, room or reg. no."></div>
+          <div class="chiprow"><span>Status</span><div class="chips" data-f="st"><button class="on" data-v="">All</button><button data-v="Booked">Booked</button><button data-v="In progress">In progress</button><button data-v="Completed">Completed</button><button data-v="Cancelled">Cancelled</button></div></div>
+          <div class="chiprow"><span>Machine</span><div class="chips" data-f="ty"><button class="on" data-v="">All</button><button data-v="Washer">Washers</button><button data-v="Dryer">Dryers</button></div></div>
+          <div class="chiprow"><span>Category</span><div class="chips" data-f="cat"><button class="on" data-v="">All</button><button data-v="Daily wash">Daily wash</button><button data-v="Weekly wash">Weekly wash</button><button data-v="Clothes">Clothes</button><button data-v="Bedding">Bedding</button><button data-v="Mixed load">Mixed</button></div></div>
+          <div class="chiprow"><span>Dates</span><div class="chips" data-f="day"><button class="on" data-v="">All dates</button><button data-v="1">Selected date</button></div></div>
+          <table class="list">
+            <thead><tr><th>Date</th><th>Slot</th><th>Machine</th><th>Student</th><th>Room</th><th>Items</th><th>Status</th><th>Actions</th></tr></thead>
+            <tbody id="rows"></tbody>
+          </table>
+          <p id="empty" class="empty" hidden>No bookings match these filters.</p>
+          <button id="reset" class="linkbtn" hidden>Reset demo data</button>
+          <button id="clearMine" class="linkbtn" hidden>Delete all my bookings</button>
+        </div>
+        <div class="card" id="rosterCard" hidden>
+          <h3>Student roster</h3><p class="sub">Only students added here can create an account. Their name and room must match what you enter.</p>
+          <form id="rosterForm" class="inline" novalidate>
+            <label>Registration number<input id="wr" inputmode="numeric"><small class="err"></small></label>
+            <label>Full name<input id="wn"><small class="err"></small></label>
+            <label>Room<input id="wm" placeholder="B-214"><small class="err"></small></label>
+            <button class="primary">Add student</button>
+          </form>
+          <div class="roster" id="rosterList"></div>
+        </div>
+      </section>
+
+      <section class="view" id="v-about" hidden>
+        <div class="two">
+          <div class="card pr"><h3>The problem</h3><p>Laundry facilities become crowded at peak times, and students cannot tell when a machine will be free.</p></div>
+          <div class="card sol"><h3>How this portal solves it</h3><p>It shows machine and slot availability for every day and lets students reserve and cancel slots, so laundry spreads out across the day instead of piling up at peak hours.</p></div>
+        </div>
+        <div class="card"><h3>How it works</h3>
+          <ol class="steps"><li><b>Log in</b>with your registration number.</li><li><b>Check the dashboard</b>to spot peak hours.</li><li><b>Book a free slot</b>or let Book next free slot pick one.</li><li><b>Track it</b>Booked, In progress, Completed. Edit, cancel or delete anytime.</li></ol></div>
+        <div class="card"><h3>Project requirements and where to find them</h3>
+          <div class="reqs">
+            <button data-go="dash"><b>Dashboard or summary view</b><span>Usage ring, peak-hours chart, machine load, status split</span></button>
+            <button data-go="book"><b>Structured forms: add and update</b><span>Booking form with room and an itemised list (shirts, pants, bedsheets and more); edit from Bookings</span></button>
+            <button data-go="list"><b>Search, filtering, categories</b><span>Search box and chips for status, washer or dryer, and date</span></button>
+            <button data-go="list"><b>Status and progress tracking</b><span>Booked, In progress, Completed, Cancelled</span></button>
+            <button data-go="list"><b>Add, update and delete records</b><span>Create, edit, cancel and permanently delete bookings</span></button>
+            <button data-go="book"><b>Validation and messages</b><span>Inline errors, green and red alerts, booking confirmation</span></button>
+            <button data-go="dash"><b>Responsive web interface</b><span>Sidebar on laptops, bottom bar on phones, light and dark themes</span></button>
+          </div></div>
+        <p class="foot">SpinSlot: Hostel Laundry Slot Booking System | CSE326 CA1 | Team Codecraft Trio | HTML, CSS, JavaScript, localStorage</p>
+      </section>
+    </main>
+  </div>
+</div>
+
+<dialog id="dlg">
+  <form id="form" novalidate>
+    <h3 id="dTitle">Book slot</h3>
+    <p id="dInfo" class="info"></p>
+    <label>Room number<input id="room" placeholder="e.g. B-214" autocomplete="off"><small class="err"></small></label>
+    <div class="itemsbox"><b>Service</b><div class="opts" id="svc"></div><small class="info" id="svcHint"></small></div>
+    <div class="itemsbox">
+      <div class="itemhead"><b>What are you washing?</b><div class="presets"><button type="button" data-p="daily">Daily wash</button><button type="button" data-p="weekly">Weekly wash</button><button type="button" data-p="bedding">Bedding</button><button type="button" data-p="all">Everything</button><button type="button" data-p="clear">Clear</button></div></div>
+      <div class="opts" id="cartTabs"><button type="button" class="on" data-t="all">All</button><button type="button" data-t="c">Clothes</button><button type="button" data-t="b">Bedding</button></div>
+      <div class="items" id="items"></div>
+      <p class="total">Total items: <b id="itemTotal">0</b> (max 40 per slot)</p>
+      <small class="err" id="itemErr"></small>
+    </div>
+    <label>Other items (optional)<input id="itemNote" maxlength="60" placeholder="e.g. 1 hoodie, 1 blanket"></label>
+    <div class="btns">
+      <button type="button" class="ghost" id="cancelDlg">Close</button>
+      <button type="submit" class="primary" id="saveBtn">Book slot</button>
+    </div>
+  </form>
+</dialog>
+<dialog id="okDlg"><div class="okbox"><svg class="okmark" viewBox="0 0 52 52"><circle cx="26" cy="26" r="24"/><path d="M15 27l8 8 14-16"/></svg><h3>Slot booked</h3><p id="okInfo"></p><p class="sub">You can edit or cancel it from Bookings.</p><div class="btns"><button class="ghost" id="okClose">Done</button><button class="primary" id="okDry" hidden>Pick dryer slot</button><button class="primary" id="okList">View my bookings</button></div></div></dialog>
+<dialog id="cfDlg"><div class="okbox"><h3 id="cfTitle">Please confirm</h3><p id="cfText"></p><div class="btns"><button class="ghost" id="cfNo">Keep it</button><button class="primary" id="cfYes">Yes</button></div></div></dialog>
+<dialog id="slipDlg"><div class="slip"><h3>Laundry slip</h3><p class="info" id="slipInfo"></p><table id="slipTable"></table><p class="total">Total: <b id="slipTotal">0</b> items</p><p class="sub" id="slipNote"></p><p class="sub">Count the items when you hand them in and again when you collect them.</p><p class="sub" id="slipMsg"></p><div class="btns"><button class="ghost" id="slipClose">Close</button><button class="ghost" id="slipCopy">Copy slip</button><button class="primary" id="slipPrint">Print</button></div></div></dialog>
+<div id="toast" role="status" aria-live="polite"></div>
+<script src="script.js"></script>
+</body>
+</html>
